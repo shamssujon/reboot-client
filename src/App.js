@@ -1,11 +1,11 @@
 import React from "react";
-import { Button } from "@material-tailwind/react";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/Routes";
 const App = () => {
 	return (
-		<div className="App">
-			<h1 className="text-6xl">Hello</h1>
-			<Button>Button</Button>
-		</div>
+		<>
+			<RouterProvider router={router}></RouterProvider>
+		</>
 	);
 };
 
