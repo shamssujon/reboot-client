@@ -1,12 +1,12 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Navbar from "../sections/Navbar";
+import Header from "../sections/Header";
 import Footer from "../sections/Footer";
 
 const MainLayout = () => {
 	return (
 		<div className="flex min-h-screen flex-col justify-between">
-			<Navbar></Navbar>
+			<Header></Header>
 			<div className="flex-1">
 				<Outlet></Outlet>
 			</div>
