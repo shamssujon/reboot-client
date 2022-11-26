@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_apiKey,
@@ -8,11 +7,9 @@ const firebaseConfig = {
 	storageBucket: process.env.REACT_APP_storageBucket,
 	messagingSenderId: process.env.REACT_APP_messagingSenderId,
 	appId: process.env.REACT_APP_appId,
-	measurementId: process.env.REACT_APP_measurementId,
 };
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-const analytics = getAnalytics(firebaseApp);
 
 export default firebaseApp;

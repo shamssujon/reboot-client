@@ -1,22 +1,123 @@
-import { Button, Input, Typography, Radio } from "@material-tailwind/react";
-import React from "react";
+import { Button, Input, Radio, Typography } from "@material-tailwind/react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import Divider from "../components/Divider";
+import { toast } from "react-hot-toast";
 import { BsGoogle } from "react-icons/bs";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Divider from "../components/Divider";
+import PageSpinner from "../components/PageSpinner";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const SignUpPage = () => {
+	const navigate = useNavigate();
+	const location = useLocation();
+	const from = location.state?.from?.pathname || "/";
+
+	const { createUser, updateUserProfile, loginwithGoogle } = useContext(AuthContext);
+
+	const [signUpLoading, setSignUpLoading] = useState(false);
+
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm();
 
-	// Login with email password
-	const handleSignIn = (userInfo) => {
-		// const email = userInfo.email;
-		// const password = userInfo.password;
-		console.log(userInfo);
+	// Create user with email password
+	const handleSignUp = (userInfo) => {
+		const name = userInfo.name;
+		const email = userInfo.email;
+		const password = userInfo.password;
+		const role = userInfo.role;
+		setSignUpLoading(true);
+
+		// Create user
+		createUser(email, password)
+			.then((result) => {
+				const user = result.user;
+				console.log(user);
+
+				// Update user name
+				updateUserProfile(name)
+					.then(() => {
+						// Save user to DB
+						saveUserToDb(name, email, role);
+					})
+					.catch((error) => {
+						console.error(error);
+						toast.error(error.message);
+					});
+			})
+			.catch((error) => {
+				console.error(error);
+				toast.error(error.message);
+			});
+	};
+
+	// Send user to server to save to DB
+	const saveUserToDb = (name, email, role) => {
+		const newUser = { name, email, role };
+
+		fetch("http://localhost:9000/users", {
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify(newUser),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data);
+				if (data.acknowledged) {
+					toast.success("Account created successfully");
+					setSignUpLoading(false);
+					reset();
+					// Navigate user back to where they came from
+					navigate(from, { replace: true });
+				}
+			});
+	};
+
+	// Google login
+	const handleGoogleLogin = () => {
+		loginwithGoogle()
+			.then((result) => {
+				const user = result.user;
+				const name = user.displayName;
+				const email = user.email;
+				const role = "buyer";
+
+				// Save Google user to DB
+				saveGoogleUserToDb(name, email, role);
+			})
+			.catch((error) => {
+				console.error(error);
+				toast.error(error.message);
+			});
+	};
+
+	// Send user to server to save to DB
+	const saveGoogleUserToDb = (name, email, role) => {
+		const newUser = { name, email, role };
+
+		fetch("http://localhost:9000/users", {
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify(newUser),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data);
+				if (data.acknowledged) {
+					toast.success("Account created successfully with Google");
+
+					// Navigate user back to where they came from
+					navigate(from, { replace: true });
+				}
+			});
 	};
 
 	return (
@@ -26,6 +127,7 @@ const SignUpPage = () => {
 					<h3 className="mb-6 text-center text-3xl font-semibold">Sign Up</h3>
 					<div className="flex items-center justify-center gap-2">
 						<Button
+							onClick={handleGoogleLogin}
 							variant="outlined"
 							className="flex items-center justify-center gap-2 text-base font-normal tracking-wide">
 							<BsGoogle className="text-xl" />
@@ -33,7 +135,7 @@ const SignUpPage = () => {
 						</Button>
 					</div>
 					<Divider>OR</Divider>
-					<form className="grid gap-4" onSubmit={handleSubmit(handleSignIn)}>
+					<form className="grid gap-4" onSubmit={handleSubmit(handleSignUp)}>
 						<div className="grid gap-2">
 							<Input
 								size="lg"
@@ -92,7 +194,7 @@ const SignUpPage = () => {
 						</Button>
 					</form>
 					<Typography variant="small" className="mt-2 gap-1 text-center">
-						<span>Don't have an account?</span>{" "}
+						<span>Already have an account?</span>{" "}
 						<Link className="" to={"/signin"}>
 							<Button variant="text" size="sm" className="p-2 font-medium tracking-wide">
 								Sign in
@@ -101,6 +203,9 @@ const SignUpPage = () => {
 					</Typography>
 				</div>
 			</div>
+
+			{/* Show spinner when user signing up */}
+			{signUpLoading && <PageSpinner></PageSpinner>}
 		</section>
 	);
 };
