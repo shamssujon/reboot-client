@@ -4,15 +4,15 @@ import { BsClockHistory, BsGeoAlt, BsPerson } from "react-icons/bs";
 import { VscCalendar } from "react-icons/vsc";
 import productImg from "../assets/images/product_img.png";
 
-const RecentProducts = () => {
+const SponsoredProducts = () => {
 	return (
 		<section className="py-10">
 			<div className="container">
 				<div className="mb-6">
-					<h4 className="text-xl font-bold uppercase">Recent Products</h4>
+					<h4 className="text-xl font-bold uppercase">Sponsored Products</h4>
 				</div>
 				<div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3 ">
-					<Card className="overflow-hidden rounded-lg">
+					<Card className="overflow-hidden rounded-lg shadow-amber-600/20 border-2 border-amber-200">
 						<CardHeader color="blue" className="relative m-0 aspect-6/4 rounded-none bg-white shadow-none">
 							<img src={productImg} alt="" className="h-full w-full object-cover" />
 						</CardHeader>
@@ -41,7 +41,7 @@ const RecentProducts = () => {
 							</div>
 						</CardBody>
 						<CardFooter divider className="flex flex-wrap items-center justify-between gap-2 px-4 py-2">
-							<Typography variant="" className="text-lg text-blue-500 font-normal">
+							<Typography variant="" className="text-lg font-normal text-blue-500">
 								<span className="text-sm font-light">TK</span> 9500
 							</Typography>
 							<Button variant="fullid" size="sm" className="text-sm font-normal tracking-wide">
@@ -55,4 +55,4 @@ const RecentProducts = () => {
 	);
 };
 
-export default RecentProducts;
+export default SponsoredProducts;
