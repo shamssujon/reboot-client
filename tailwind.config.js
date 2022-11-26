@@ -2,7 +2,7 @@
 
 const withMT = require("@material-tailwind/react/utils/withMT");
 const defaultTheme = require("tailwindcss/defaultTheme");
-const colors = require('tailwindcss/colors')
+const colors = require("tailwindcss/colors");
 
 module.exports = withMT({
 	content: ["./src/**/*.{js,jsx,ts,tsx}"],
@@ -27,8 +27,12 @@ module.exports = withMT({
 				rose: colors.rose,
 			},
 			gridTemplateColumns: {
-				'auto-fill': 'repeat(auto-fill, minmax(150px, 1fr))',
-			  },
+				"auto-fill": "repeat(auto-fill, minmax(150px, 1fr))",
+			},
+			aspectRatio: {
+				"4/3": "4 / 3",
+				"6/4": "6 / 4",
+			},
 		},
 	},
 	plugins: [],
