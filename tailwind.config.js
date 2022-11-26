@@ -6,21 +6,21 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = withMT({
 	content: ["./src/**/*.{js,jsx,ts,tsx}"],
 	theme: {
-		extend: {
-			screens: {
-				sm: "576px",
-				md: "768px",
-				lg: "960px",
-				xl: "1280px",
-				"2xl": "1440px",
-			},
-			fontFamily: {
-				sans: ["Kanit", ...defaultTheme.fontFamily.sans],
-			},
+		screens: {
+			sm: "576px",
+			md: "768px",
+			lg: "960px",
+			xl: "1280px",
+			"2xl": "1280px",
 		},
 		container: {
 			center: true,
 			padding: "1.5rem",
+		},
+		extend: {
+			fontFamily: {
+				sans: ["Kanit", ...defaultTheme.fontFamily.sans],
+			},
 		},
 	},
 	plugins: [],

@@ -5,7 +5,7 @@ const Footer = () => {
 	return (
 		<footer className="bg-blue-gray-50 text-center lg:text-left">
 			<div className="container py-10 text-center md:text-left">
-				<div className="grid-1 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+				<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
 					<div className="">
 						<h6 className="mb-4 flex items-center justify-center font-semibold uppercase md:justify-start">
 							Reboot
