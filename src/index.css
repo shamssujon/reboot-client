@@ -5,6 +5,6 @@
 
 @layer base {
     html,body {
-        @apply font-light
+        @apply font-light text-blue-gray-800
     }
 }
