@@ -2,6 +2,7 @@
 
 const withMT = require("@material-tailwind/react/utils/withMT");
 const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require('tailwindcss/colors')
 
 module.exports = withMT({
 	content: ["./src/**/*.{js,jsx,ts,tsx}"],
@@ -21,6 +22,13 @@ module.exports = withMT({
 			fontFamily: {
 				sans: ["Kanit", ...defaultTheme.fontFamily.sans],
 			},
+			colors: {
+				slate: colors.slate,
+				rose: colors.rose,
+			},
+			gridTemplateColumns: {
+				'auto-fill': 'repeat(auto-fill, minmax(150px, 1fr))',
+			  },
 		},
 	},
 	plugins: [],
