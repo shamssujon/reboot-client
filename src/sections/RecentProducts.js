@@ -41,10 +41,10 @@ const RecentProducts = () => {
 							</div>
 						</CardBody>
 						<CardFooter divider className="flex flex-wrap items-center justify-between gap-2 px-4 py-2">
-							<Typography variant="" className="text-lg text-blue-500 font-normal">
+							<Typography className="text-lg text-blue-500 font-normal">
 								<span className="text-sm font-light">TK</span> 9500
 							</Typography>
-							<Button variant="fullid" size="sm" className="text-sm font-normal tracking-wide">
+							<Button size="sm" className="text-sm font-normal tracking-wide">
 								Buy Now
 							</Button>
 						</CardFooter>
