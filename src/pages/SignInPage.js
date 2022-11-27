@@ -1,11 +1,18 @@
 import { Button, Input, Typography } from "@material-tailwind/react";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Divider from "../components/Divider";
 import { BsGoogle } from "react-icons/bs";
+import { AuthContext } from "../contexts/AuthProvider";
+import { toast } from "react-hot-toast";
 
 const SignInPage = () => {
+	const navigate = useNavigate();
+	const location = useLocation();
+	const from = location.state?.from?.pathname || "/";
+	const { login, loginwithGoogle } = useContext(AuthContext);
+
 	const {
 		register,
 		handleSubmit,
@@ -17,6 +24,20 @@ const SignInPage = () => {
 		const email = userInfo.email;
 		const password = userInfo.password;
 		console.log(email, password);
+
+		login(email, password)
+			.then((result) => {
+				const user = result.user;
+				console.log(user);
+				toast.success("Logged in successfully");
+
+				// Navigate user back to where they came from
+				navigate(from, { replace: true });
+			})
+			.catch((error) => {
+				console.error(error);
+				toast.error(error.message);
+			});
 	};
 
 	return (
