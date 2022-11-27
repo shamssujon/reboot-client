@@ -1,19 +1,22 @@
 import { Avatar, Button, IconButton, Input, Tooltip, Typography } from "@material-tailwind/react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { BsTrash } from "react-icons/bs";
-import { TbEdit } from "react-icons/tb";
-import { CgSpinner } from "react-icons/cg";
-import axios from "axios";
 import { toast } from "react-hot-toast";
-import { useQuery } from "@tanstack/react-query";
+import { BsTrash } from "react-icons/bs";
+import { CgSpinner } from "react-icons/cg";
+import { TbEdit } from "react-icons/tb";
 
 const ProductCategories = () => {
-	// const categories = [
-	// 	{ _id: 1, name: "CPU", image: "https://via.placeholder.com/80" },
-	// 	{ _id: 2, name: "GPU", image: "https://via.placeholder.com/80" },
-	// ];
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm();
 
+	// Get all product categories
 	const { data: categories = [], refetch } = useQuery({
 		queryKey: ["categories"],
 		queryFn: async () => {
@@ -22,13 +25,6 @@ const ProductCategories = () => {
 			return data;
 		},
 	});
-
-	const {
-		register,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = useForm();
 
 	const [uploading, setUploading] = useState(false);
 	const imgbbApiKey = process.env.REACT_APP_imgbbApiKey;
