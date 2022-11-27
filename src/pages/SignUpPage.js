@@ -93,6 +93,7 @@ const SignUpPage = () => {
 		loginwithGoogle()
 			.then((result) => {
 				const user = result.user;
+                console.log(user);
 				const name = user.displayName;
 				const email = user.email;
 				const role = "buyer";

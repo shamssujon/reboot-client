@@ -1,9 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Navbar, MobileNav, Typography, Button, IconButton } from "@material-tailwind/react";
+import {
+	Avatar,
+	Button,
+	IconButton,
+	Menu,
+	MenuHandler,
+	MenuItem,
+	MenuList,
+	MobileNav,
+	Navbar,
+	Typography,
+} from "@material-tailwind/react";
+import React, { useContext, useEffect, useState } from "react";
 import { BsFillPersonFill } from "react-icons/bs";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const Header = () => {
+	const { user, logout } = useContext(AuthContext);
+
 	const [openNav, setOpenNav] = useState(false);
 
 	useEffect(() => {
@@ -16,6 +30,10 @@ const Header = () => {
 		{ title: "About", path: "/about" },
 		{ title: "Contact", path: "/contact" },
 	];
+
+	const handleLogOut = () => {
+		logout();
+	};
 
 	const navigation = (
 		<ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -41,11 +59,43 @@ const Header = () => {
 				</Link>
 				<div className="hidden lg:block">{navigation}</div>
 				<div className="flex items-center gap-4">
-					<Link to="/signin" className="inline-block">
-						<IconButton>
-							<BsFillPersonFill className="text-2xl" />
-						</IconButton>
-					</Link>
+					{user ? (
+						<Menu
+							placement="bottom-end"
+							animate={{
+								mount: { y: 0 },
+								unmount: { y: 5 },
+							}}>
+							<MenuHandler>
+								<button className="grid aspect-square h-10 w-10 cursor-pointer place-content-center overflow-hidden rounded-full border-2 border-blue-300 bg-blue-500 transition hover:border-blue-500 focus:border-blue-500">
+									{user?.photoURL ? (
+										<Avatar
+											src={user?.photoURL}
+											alt="avatar"
+											variant="circular"
+											className="h-full w-full object-cover"
+										/>
+									) : (
+										<p className="text-lg font-bold uppercase text-white">{user?.displayName[0]}</p>
+									)}
+								</button>
+							</MenuHandler>
+							<MenuList>
+								<MenuItem>Menu Item 1</MenuItem>
+								<MenuItem>Menu Item 2</MenuItem>
+								<MenuItem>
+									<button onClick={handleLogOut}>Log Out</button>
+								</MenuItem>
+							</MenuList>
+						</Menu>
+					) : (
+						<Link to="/signin" className="inline-block">
+							<IconButton>
+								<BsFillPersonFill className="text-2xl" />
+							</IconButton>
+						</Link>
+					)}
+
 					<IconButton
 						variant="text"
 						className="ml-auto h-8 w-8 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -76,9 +126,7 @@ const Header = () => {
 				</div>
 			</div>
 			<MobileNav open={openNav}>
-				<div className="container">
-					{navigation}
-				</div>
+				<div className="container">{navigation}</div>
 			</MobileNav>
 		</Navbar>
 	);
