@@ -4,9 +4,9 @@ import { NavLink } from "react-router-dom";
 const DashboardSidebar = () => {
 	const navList = [
 		{ title: "All Buyers", path: "/dashboard/allbuyers" },
-		{ title: "All Sellers", path: "/allbuyers" },
-		{ title: "Product Categories", path: "/allbuyers" },
-		{ title: "Reported Product", path: "/allbuyers" },
+		{ title: "All Sellers", path: "/dashboard/allsellers" },
+		{ title: "Product Categories", path: "/dashboard/categories" },
+		{ title: "Reported Product", path: "/dashboard/reported_products" },
 	];
 	return (
 		<div className="bg-white py-6">
