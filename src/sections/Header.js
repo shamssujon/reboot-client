@@ -81,8 +81,9 @@ const Header = () => {
 								</button>
 							</MenuHandler>
 							<MenuList>
-								<MenuItem>Menu Item 1</MenuItem>
-								<MenuItem>Menu Item 2</MenuItem>
+								<MenuItem>
+										<Link to="/dashboard">Dashboard</Link>
+								</MenuItem>
 								<MenuItem>
 									<button onClick={handleLogOut}>Log Out</button>
 								</MenuItem>
