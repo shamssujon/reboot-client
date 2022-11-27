@@ -10,7 +10,9 @@ const DashboardLayout = () => {
 			<Header></Header>
 			<div className="flex-1 grid grid-cols-[300px,1fr] container">
 				<DashboardSidebar></DashboardSidebar>
+				<div className="p-10">
 				<Outlet></Outlet>
+				</div>
 			</div>
 			<Footer></Footer>
 		</div>

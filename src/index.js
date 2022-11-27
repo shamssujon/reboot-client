@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@material-tailwind/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Toaster } from "react-hot-toast";
@@ -9,14 +10,19 @@ import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
+// Create a client
+const queryClient = new QueryClient();
+
 root.render(
 	<React.StrictMode>
-		<ThemeProvider>
-			<AuthProvider>
-				<App />
-				<Toaster />
-			</AuthProvider>
-		</ThemeProvider>
+		<QueryClientProvider client={queryClient}>
+			<ThemeProvider>
+				<AuthProvider>
+					<App />
+					<Toaster />
+				</AuthProvider>
+			</ThemeProvider>
+		</QueryClientProvider>
 	</React.StrictMode>
 );
 
