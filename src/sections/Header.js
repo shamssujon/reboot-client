@@ -81,11 +81,19 @@ const Header = () => {
 								</button>
 							</MenuHandler>
 							<MenuList>
-								<MenuItem>
-										<Link to="/dashboard">Dashboard</Link>
+								<MenuItem className="overflow-hidden p-0 transition hover:bg-transparent hover:bg-opacity-100 hover:text-inherit">
+									<Link
+										to="/dashboard"
+										className="block w-full px-3 py-2 text-left text-base text-blue-gray-800 transition hover:bg-blue-gray-50 hover:text-blue-500">
+										Dashboard
+									</Link>
 								</MenuItem>
-								<MenuItem>
-									<button onClick={handleLogOut}>Log Out</button>
+								<MenuItem className="overflow-hidden p-0 transition hover:bg-transparent hover:bg-opacity-100 hover:text-inherit">
+									<button
+										onClick={handleLogOut}
+										className="block w-full px-3 py-2 text-left text-base text-blue-gray-800 transition hover:bg-blue-gray-50 hover:text-blue-500">
+										Log Out
+									</button>
 								</MenuItem>
 							</MenuList>
 						</Menu>
