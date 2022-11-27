@@ -6,6 +6,7 @@ import AllSellers from "../pages/AllSellers";
 import DashboardPage from "../pages/DashboardPage";
 import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage";
+import ProductCategories from "../pages/ProductCategories";
 import SignInPage from "../pages/SignInPage";
 import SignUpPage from "../pages/SignUpPage";
 
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
 			{
 				path: "/dashboard/allsellers",
 				element: <AllSellers></AllSellers>,
+			},
+			{
+				path: "/dashboard/categories",
+				element: <ProductCategories></ProductCategories>,
 			},
 		],
 	},
