@@ -47,11 +47,13 @@ const SignUpPage = () => {
 					.catch((error) => {
 						console.error(error);
 						toast.error(error.message);
+						setSignUpLoading(false);
 					});
 			})
 			.catch((error) => {
 				console.error(error);
 				toast.error(error.message);
+				setSignUpLoading(false);
 			});
 	};
 
@@ -75,7 +77,14 @@ const SignUpPage = () => {
 					reset();
 					// Navigate user back to where they came from
 					navigate(from, { replace: true });
+				} else {
+					toast.error(data.message);
 				}
+			})
+			.catch((error) => {
+				console.error(error);
+				toast.error(error.message);
+				setSignUpLoading(false);
 			});
 	};
 
@@ -94,6 +103,7 @@ const SignUpPage = () => {
 			.catch((error) => {
 				console.error(error);
 				toast.error(error.message);
+				setSignUpLoading(false);
 			});
 	};
 
@@ -111,12 +121,19 @@ const SignUpPage = () => {
 			.then((res) => res.json())
 			.then((data) => {
 				console.log(data);
+
 				if (data.acknowledged) {
 					toast.success("Account created successfully with Google");
-
-					// Navigate user back to where they came from
-					navigate(from, { replace: true });
-				}
+				} else {
+                    toast.success("Signed in with Google");
+                }
+             
+				// Navigate user back to where they came from
+				navigate(from, { replace: true });
+			})
+			.catch((error) => {
+				console.error(error);
+				setSignUpLoading(false);
 			});
 	};
 
