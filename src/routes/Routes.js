@@ -8,6 +8,7 @@ import DashboardPage from "../pages/DashboardPage";
 import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage";
 import ProductCategories from "../pages/ProductCategories";
+import ProductDetailsPage from "../pages/ProductDetailsPage";
 import ProductsPage from "../pages/ProductsPage";
 import SignInPage from "../pages/SignInPage";
 import SignUpPage from "../pages/SignUpPage";
@@ -45,6 +46,13 @@ export const router = createBrowserRouter([
 				element: <ProductsPage></ProductsPage>,
 				loader: async ({ params }) => {
 					return fetch(`https://reboot-server.vercel.app/products/${params.categorySlug}`);
+				},
+			},
+			{
+				path: "/products/product/:id",
+				element: <ProductDetailsPage></ProductDetailsPage>,
+				loader: async ({ params }) => {
+					return fetch(`http://localhost:9000/product/${params.id}`);
 				},
 			},
 		],

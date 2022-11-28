@@ -2,9 +2,10 @@ import { Button, Card, CardBody, CardFooter, CardHeader, Typography } from "@mat
 import React from "react";
 import { BsClockHistory, BsGeoAlt, BsPerson } from "react-icons/bs";
 import { VscCalendar } from "react-icons/vsc";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
-	const { title, image, price, category, condition, usedFor, seller, location, postingDate } = product;
+	const { _id, title, image, price, category, condition, usedFor, seller, location, postingDate } = product;
 	return (
 		<Card className="justify-between overflow-hidden rounded-lg">
 			<CardHeader color="blue" className="relative m-0 aspect-6/4 rounded-none bg-white shadow-none">
@@ -38,9 +39,11 @@ const ProductCard = ({ product }) => {
 				<Typography className="text-lg font-normal text-blue-500">
 					<span className="text-sm font-light">TK</span> {price}
 				</Typography>
-				<Button size="sm" className="text-sm font-normal tracking-wide">
-					Buy Now
-				</Button>
+				<Link to={`/products/product/${_id}`}>
+					<Button size="sm" className="text-sm font-normal tracking-wide">
+						Buy Now
+					</Button>
+				</Link>
 			</CardFooter>
 		</Card>
 	);
