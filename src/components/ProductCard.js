@@ -4,13 +4,13 @@ import { BsClockHistory, BsGeoAlt, BsPerson } from "react-icons/bs";
 import { VscCalendar } from "react-icons/vsc";
 
 const ProductCard = ({ product }) => {
-	const { title, image, price, category, condition, usedFor, seller, location } = product;
+	const { title, image, price, category, condition, usedFor, seller, location, postingDate } = product;
 	return (
-		<Card className="overflow-hidden rounded-lg justify-between">
+		<Card className="justify-between overflow-hidden rounded-lg">
 			<CardHeader color="blue" className="relative m-0 aspect-6/4 rounded-none bg-white shadow-none">
 				<img src={image} alt="" className="h-full w-full object-cover" />
 			</CardHeader>
-			<CardBody className="p-4 flex-1">
+			<CardBody className="flex-1 p-4">
 				<Typography variant="h5" className="text-lg font-medium">
 					{title}
 				</Typography>
@@ -26,7 +26,7 @@ const ProductCard = ({ product }) => {
 					</Typography>
 					<Typography variant="small" color="gray" className="flex items-center gap-1">
 						<BsClockHistory />
-						<span>26 November</span>
+						<span>{postingDate.split("T")[0]}</span>
 					</Typography>
 					<Typography variant="small" color="gray" className="flex items-center gap-1">
 						<VscCalendar />

@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-const Categories = () => {
+const Categories = ({ sectionTitle }) => {
 	// Get all product categories
 	const { data: categories = [] } = useQuery({
 		queryKey: ["categories"],
@@ -15,17 +15,26 @@ const Categories = () => {
 	return (
 		<section className="py-10">
 			<div className="container">
-				<div className="mb-6">
-					<h4 className="text-xl font-bold uppercase">Categories</h4>
-				</div>
+				{sectionTitle && (
+					<div className="mb-6">
+						<h4 className="text-xl font-bold uppercase">{sectionTitle}</h4>
+					</div>
+				)}
 				<div className="grid grid-cols-auto-fill gap-4">
 					{categories.map((category) => (
-						<Link
+						<NavLink
 							key={category._id}
-							className="rounded-lg border border-slate-100 bg-white p-4 text-center shadow-sm transition hover:border-blue-500 hover:shadow">
+							to={`/products/${category.slug}`}
+							className={({ isActive }) =>
+								`rounded-lg border bg-white p-4 text-center transition ${
+									isActive
+										? "border-blue-500 text-blue-500 shadow-lg shadow-blue-500/20"
+										: "border-slate-100 shadow-sm hover:border-blue-500 hover:shadow"
+								}`
+							}>
 							<img src={category.image} alt="" className="mx-auto mb-2 block h-12 w-12 object-contain" />
 							<span className="font-normal">{category.name}</span>
-						</Link>
+						</NavLink>
 					))}
 				</div>
 			</div>

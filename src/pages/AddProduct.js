@@ -56,11 +56,12 @@ const AddProduct = () => {
 			if (res.data.success) {
 				const product = {
 					title: productData.title,
-					category: productData.category,
+					category: productData.category.trim().split(' ').join('-').toLowerCase(),
 					image: res.data.data.url,
 					price: productData.price,
 					condition: productData.condition,
 					usedFor: productData.usedFor,
+					postingDate: "",
 					description: productData.description,
 					seller: {
 						name: user.displayName,

@@ -8,6 +8,7 @@ import DashboardPage from "../pages/DashboardPage";
 import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage";
 import ProductCategories from "../pages/ProductCategories";
+import ProductsPage from "../pages/ProductsPage";
 import SignInPage from "../pages/SignInPage";
 import SignUpPage from "../pages/SignUpPage";
 
@@ -31,6 +32,20 @@ export const router = createBrowserRouter([
 			{
 				path: "/signup",
 				element: <SignUpPage></SignUpPage>,
+			},
+			{
+				path: "/products",
+				element: <ProductsPage></ProductsPage>,
+				loader: async () => {
+			        return fetch(`http://localhost:9000/products`);
+			    },
+			},
+			{
+				path: "/products/:categorySlug",
+				element: <ProductsPage></ProductsPage>,
+				loader: async ({ params }) => {
+					return fetch(`http://localhost:9000/products/${params.categorySlug}`);
+				},
 			},
 		],
 	},
