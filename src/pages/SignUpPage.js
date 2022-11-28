@@ -61,7 +61,7 @@ const SignUpPage = () => {
 	const saveUserToDb = (name, email, role) => {
 		const newUser = { name, email, role };
 
-		fetch("http://localhost:9000/users", {
+		fetch("https://reboot-server.vercel.app/users", {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
@@ -112,7 +112,7 @@ const SignUpPage = () => {
 	const saveGoogleUserToDb = (name, email, role) => {
 		const newUser = { name, email, role };
 
-		fetch("http://localhost:9000/users", {
+		fetch("https://reboot-server.vercel.app/users", {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",

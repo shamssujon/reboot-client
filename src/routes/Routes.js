@@ -37,14 +37,14 @@ export const router = createBrowserRouter([
 				path: "/products",
 				element: <ProductsPage></ProductsPage>,
 				loader: async () => {
-			        return fetch(`http://localhost:9000/products`);
+			        return fetch(`https://reboot-server.vercel.app/products`);
 			    },
 			},
 			{
 				path: "/products/:categorySlug",
 				element: <ProductsPage></ProductsPage>,
 				loader: async ({ params }) => {
-					return fetch(`http://localhost:9000/products/${params.categorySlug}`);
+					return fetch(`https://reboot-server.vercel.app/products/${params.categorySlug}`);
 				},
 			},
 		],

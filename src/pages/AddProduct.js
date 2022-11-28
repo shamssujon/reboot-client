@@ -26,7 +26,7 @@ const AddProduct = () => {
 	const { data: categories = [] } = useQuery({
 		queryKey: ["categories"],
 		queryFn: async () => {
-			const res = await fetch("http://localhost:9000/categories");
+			const res = await fetch("https://reboot-server.vercel.app/categories");
 			const data = await res.json();
 			return data;
 		},
@@ -75,7 +75,7 @@ const AddProduct = () => {
 				// Send product to server to save in DB
 				axios({
 					method: "POST",
-					url: "http://localhost:9000/products",
+					url: "https://reboot-server.vercel.app/products",
 					data: product,
 				})
 					.then((res) => {
