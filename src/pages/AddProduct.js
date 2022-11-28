@@ -233,7 +233,7 @@ const AddProduct = () => {
 						{errors.location && <p className="text-sm text-rose-500">{errors.location.message}</p>}
 					</div>
 					<div className="grid gap-2">
-						<Textarea label="Product Description" className="text-base" {...register("description")} />
+						<Textarea label="Product Description" className="text-base !resize-y !transition-none transition" {...register("description")} />
 					</div>
 					<Button
 						type="submit"
