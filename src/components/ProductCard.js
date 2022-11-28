@@ -41,7 +41,7 @@ const ProductCard = ({ product }) => {
 				</Typography>
 				<Link to={`/products/product/${_id}`}>
 					<Button size="sm" className="text-sm font-normal tracking-wide">
-						Buy Now
+						Details
 					</Button>
 				</Link>
 			</CardFooter>
