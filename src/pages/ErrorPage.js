@@ -19,7 +19,7 @@ const ErrorPage = () => {
 					</Player>
 				</div>
 				<div className="relative -mt-10">
-					<p className="mb-6 text-xl">The content you have requested is not found here</p>
+					<p className="mb-6 text-2xl">The content you have requested is not found here</p>
 					<Link to="/">
 						<Button className="group inline-flex items-center justify-center gap-2 text-base font-normal tracking-wide">
 							<BsArrowLeft className="h-6 w-6 transition group-hover:-translate-x-1" />

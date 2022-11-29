@@ -7,7 +7,7 @@ const RecentProducts = () => {
 	const { data: products = [] } = useQuery({
 		queryKey: ["products"],
 		queryFn: async () => {
-			const res = await fetch("https://reboot-server.vercel.app/products?limit=6");
+			const res = await fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/products?limit=6`);
 			const data = await res.json();
 			return data;
 		},

@@ -6,7 +6,7 @@ import {
 	signInWithEmailAndPassword,
 	signInWithPopup,
 	signOut,
-	updateProfile
+	updateProfile,
 } from "firebase/auth";
 import React, { createContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -15,6 +15,10 @@ import firebaseApp from "../firebase/Firebase.config";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+	// Server URLs
+	const serverLocalUrl = process.env.REACT_APP_SERVER_LOCAL_URL;
+	const serverLiveUrl = process.env.REACT_APP_SERVER_LIVE_URL;
+
 	const [user, setUser] = useState(null);
 	const [loading, setLoading] = useState(true);
 
@@ -75,6 +79,8 @@ const AuthProvider = ({ children }) => {
 		logout,
 		updateUserProfile,
 		loginwithGoogle,
+		serverLocalUrl,
+		serverLiveUrl,
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

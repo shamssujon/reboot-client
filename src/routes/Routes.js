@@ -7,6 +7,7 @@ import AllSellers from "../pages/AllSellers";
 import DashboardPage from "../pages/DashboardPage";
 import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage";
+import MyOrders from "../pages/MyOrders";
 import ProductCategories from "../pages/ProductCategories";
 import ProductDetailsPage from "../pages/ProductDetailsPage";
 import ProductsPage from "../pages/ProductsPage";
@@ -38,21 +39,21 @@ export const router = createBrowserRouter([
 				path: "/products",
 				element: <ProductsPage></ProductsPage>,
 				loader: async () => {
-			        return fetch(`https://reboot-server.vercel.app/products`);
-			    },
+					return fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/products`);
+				},
 			},
 			{
 				path: "/products/:categorySlug",
 				element: <ProductsPage></ProductsPage>,
 				loader: async ({ params }) => {
-					return fetch(`https://reboot-server.vercel.app/products/${params.categorySlug}`);
+					return fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/products/${params.categorySlug}`);
 				},
 			},
 			{
 				path: "/products/product/:id",
 				element: <ProductDetailsPage></ProductDetailsPage>,
 				loader: async ({ params }) => {
-					return fetch(`http://localhost:9000/product/${params.id}`);
+					return fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/product/${params.id}`);
 				},
 			},
 		],
@@ -66,6 +67,14 @@ export const router = createBrowserRouter([
 				element: <DashboardPage></DashboardPage>,
 			},
 			{
+				path: "/dashboard/myorders",
+				element: <MyOrders></MyOrders>,
+			},
+			{
+				path: "/dashboard/addproduct",
+				element: <AddProduct></AddProduct>,
+			},
+			{
 				path: "/dashboard/allbuyers",
 				element: <AllBuyers></AllBuyers>,
 			},
@@ -76,10 +85,6 @@ export const router = createBrowserRouter([
 			{
 				path: "/dashboard/categories",
 				element: <ProductCategories></ProductCategories>,
-			},
-			{
-				path: "/dashboard/addproduct",
-				element: <AddProduct></AddProduct>,
 			},
 		],
 	},

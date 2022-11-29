@@ -26,7 +26,7 @@ const AddProduct = () => {
 	const { data: categories = [] } = useQuery({
 		queryKey: ["categories"],
 		queryFn: async () => {
-			const res = await fetch("https://reboot-server.vercel.app/categories");
+			const res = await fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/categories`);
 			const data = await res.json();
 			return data;
 		},
@@ -56,7 +56,7 @@ const AddProduct = () => {
 			if (res.data.success) {
 				const product = {
 					title: productData.title,
-					category: productData.category.trim().split(' ').join('-').toLowerCase(),
+					category: productData.category.trim().split(" ").join("-").toLowerCase(),
 					image: res.data.data.url,
 					price: productData.price,
 					condition: productData.condition,
@@ -75,7 +75,7 @@ const AddProduct = () => {
 				// Send product to server to save in DB
 				axios({
 					method: "POST",
-					url: "https://reboot-server.vercel.app/products",
+					url: `${process.env.REACT_APP_SERVER_LIVE_URL}/products`,
 					data: product,
 				})
 					.then((res) => {
@@ -234,7 +234,11 @@ const AddProduct = () => {
 						{errors.location && <p className="text-sm text-rose-500">{errors.location.message}</p>}
 					</div>
 					<div className="grid gap-2">
-						<Textarea label="Product Description" className="text-base !resize-y !transition-none transition" {...register("description")} />
+						<Textarea
+							label="Product Description"
+							className="!resize-y text-base !transition-none transition"
+							{...register("description")}
+						/>
 					</div>
 					<Button
 						type="submit"

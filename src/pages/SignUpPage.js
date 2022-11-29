@@ -61,7 +61,7 @@ const SignUpPage = () => {
 	const saveUserToDb = (name, email, role) => {
 		const newUser = { name, email, role };
 
-		fetch("https://reboot-server.vercel.app/users", {
+		fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/users`, {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
@@ -93,7 +93,7 @@ const SignUpPage = () => {
 		loginwithGoogle()
 			.then((result) => {
 				const user = result.user;
-                console.log(user);
+				console.log(user);
 				const name = user.displayName;
 				const email = user.email;
 				const role = "buyer";
@@ -112,7 +112,7 @@ const SignUpPage = () => {
 	const saveGoogleUserToDb = (name, email, role) => {
 		const newUser = { name, email, role };
 
-		fetch("https://reboot-server.vercel.app/users", {
+		fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/users`, {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
@@ -126,9 +126,9 @@ const SignUpPage = () => {
 				if (data.acknowledged) {
 					toast.success("Account created successfully with Google");
 				} else {
-                    toast.success("Signed in with Google");
-                }
-             
+					toast.success("Signed in with Google");
+				}
+
 				// Navigate user back to where they came from
 				navigate(from, { replace: true });
 			})

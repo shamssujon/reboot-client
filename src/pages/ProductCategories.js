@@ -20,7 +20,7 @@ const ProductCategories = () => {
 	const { data: categories = [], refetch } = useQuery({
 		queryKey: ["categories"],
 		queryFn: async () => {
-			const res = await fetch("https://reboot-server.vercel.app/categories");
+			const res = await fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/categories`);
 			const data = await res.json();
 			return data;
 		},
@@ -58,7 +58,7 @@ const ProductCategories = () => {
 				// Send category to server to save in DB
 				axios({
 					method: "POST",
-					url: "https://reboot-server.vercel.app/categories",
+					url: `${process.env.REACT_APP_SERVER_LIVE_URL}/categories`,
 					data: category,
 				}).then((res) => {
 					console.log(res.data);

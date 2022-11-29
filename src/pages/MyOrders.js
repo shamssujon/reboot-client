@@ -4,7 +4,7 @@ import React from "react";
 import { BsTrash } from "react-icons/bs";
 import PageSpinner from "../components/PageSpinner";
 
-const AllSellers = () => {
+const MyOrders = () => {
 	const { data: sellers = [], isLoading } = useQuery({
 		queryKey: ["sellers"],
 		queryFn: async () => {
@@ -21,7 +21,7 @@ const AllSellers = () => {
 	return (
 		<div className="">
 			<Typography variant="h4" className="mb-6">
-				Sellers
+				My Orders
 			</Typography>
 			<div className="flex flex-col rounded-lg border bg-white">
 				<div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -34,10 +34,13 @@ const AllSellers = () => {
 											#
 										</th>
 										<th className="px-6 py-4 text-left text-sm font-medium text-blue-gray-800">
-											Sellers
+											Product
 										</th>
 										<th className="px-6 py-4 text-left text-sm font-medium text-blue-gray-800">
-											Email
+											Date
+										</th>
+										<th className="px-6 py-4 text-left text-sm font-medium text-blue-gray-800">
+											Status
 										</th>
 										<th className="px-6 py-4 text-end text-sm font-medium text-blue-gray-800">
 											Actions
@@ -56,6 +59,9 @@ const AllSellers = () => {
 											</td>
 											<td className="whitespace-nowrap px-6 py-4 text-sm font-light text-blue-gray-800">
 												{seller.email}
+											</td>
+											<td className="whitespace-nowrap px-6 py-4 text-sm font-light text-blue-gray-800">
+												<p>Pending</p>
 											</td>
 											<td className="whitespace-nowrap px-6 py-4 text-sm font-light text-blue-gray-800">
 												<div className="flex items-center justify-end gap-2">
@@ -78,4 +84,4 @@ const AllSellers = () => {
 	);
 };
 
-export default AllSellers;
+export default MyOrders;

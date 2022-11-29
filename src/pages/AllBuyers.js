@@ -8,7 +8,7 @@ const AllBuyers = () => {
 	const { data: buyers = [], isLoading } = useQuery({
 		queryKey: ["buyers"],
 		queryFn: async () => {
-			const res = await fetch("https://reboot-server.vercel.app/users?role=buyer");
+			const res = await fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/users?role=buyer`);
 			const data = await res.json();
 			return data;
 		},
