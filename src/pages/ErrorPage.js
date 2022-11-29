@@ -1,16 +1,32 @@
 import { Button } from "@material-tailwind/react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { Player, Controls } from "@lottiefiles/react-lottie-player";
+import { BsArrowLeft } from "react-icons/bs";
 
 const ErrorPage = () => {
 	return (
-		<section className="py-20">
+		<section className="bg-white pb-20 pt-1">
 			<div className="container text-center">
-				<h1 className="text-6xl font-bold leading-none mb-2">404</h1>
-				<p className="text-2xl">This page does not exist</p>
-				<Link to="/" className="inline-block mt-5">
-					<Button className="font-normal text-base tracking-wide">Go back to homepage</Button>
-				</Link>
+				<div className="min-h-[300px]">
+					<Player
+						autoplay
+						loop
+						speed="1"
+						src="https://assets1.lottiefiles.com/packages/lf20_6nmazhqu.json"
+						className="h-auto max-w-[450px]">
+						<Controls visible={false} buttons={["play", "repeat", "frame", "debug"]} />
+					</Player>
+				</div>
+				<div className="relative -mt-10">
+					<p className="mb-6 text-xl">The content you have requested is not found here</p>
+					<Link to="/">
+						<Button className="group inline-flex items-center justify-center gap-2 text-base font-normal tracking-wide">
+							<BsArrowLeft className="h-6 w-6 transition group-hover:-translate-x-1" />
+							<span>Go back to homepage</span>
+						</Button>
+					</Link>
+				</div>
 			</div>
 		</section>
 	);

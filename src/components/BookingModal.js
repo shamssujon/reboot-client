@@ -34,6 +34,8 @@ const BookingModal = ({ openModal, modalHandler, productData }) => {
 		};
 		// console.log(order);
 
+		setProcessingOrder(true);
+
 		// Send order to server to save in DB
 		axios({
 			method: "POST",
@@ -41,18 +43,21 @@ const BookingModal = ({ openModal, modalHandler, productData }) => {
 			data: order,
 		})
 			.then((res) => {
-				console.log(res.data);
+				// console.log(res.data);
 
 				if (res.data.acknowledged) {
 					setProcessingOrder(false);
 					toast.success("Product added");
-					reset();
-					modalHandler();
 				}
 			})
+			.then(() => {
+				reset();
+				modalHandler();
+			})
 			.catch((error) => {
-				setProcessingOrder(false);
+                toast.error(error)
 				console.error(error);
+				setProcessingOrder(false);
 			});
 	};
 
