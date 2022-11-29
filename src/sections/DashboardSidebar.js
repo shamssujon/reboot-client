@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthProvider";
+import useUserRoleChecker from "../hooks/useUserRoleChecker";
 
 const DashboardSidebar = () => {
-	const navList = [
-		{ title: "My Orders", path: "/dashboard/myorders" },
-		{ title: "Add a Product", path: "/dashboard/addproduct" },
-		{ title: "My Products", path: "/dashboard/myproducts" },
-		{ title: "My Buyers", path: "/dashboard/user_orders" },
-		{ title: "All Buyers", path: "/dashboard/allbuyers" },
-		{ title: "All Sellers", path: "/dashboard/allsellers" },
-		{ title: "Product Categories", path: "/dashboard/categories" },
-		{ title: "Reported Product", path: "/dashboard/reported-products" },
-	];
+	const { user } = useContext(AuthContext);
+	const [userRole] = useUserRoleChecker(user?.email);
+
+	let navList = [];
+
+	if (userRole === "buyer") {
+		navList = [
+			{ title: "My Orders", path: "/dashboard/myorders" },
+			{ title: "Wishlist", path: "/dashboard/wishlist" },
+		];
+	} else if (userRole === "seller") {
+		navList = [
+			{ title: "Add a Product", path: "/dashboard/addproduct" },
+			{ title: "My Products", path: "/dashboard/myproducts" },
+		];
+	} else if (userRole === "admin") {
+		navList = [
+			{ title: "All Buyers", path: "/dashboard/allbuyers" },
+			{ title: "All Sellers", path: "/dashboard/allsellers" },
+			{ title: "Product Categories", path: "/dashboard/categories" },
+			{ title: "Reported Product", path: "/dashboard/reported-products" },
+		];
+	}
+
 	return (
 		<div className="bg-white py-6">
 			<nav className="grid pl-3">

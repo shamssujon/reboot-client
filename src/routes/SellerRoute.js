@@ -4,7 +4,7 @@ import PageSpinner from "../components/PageSpinner";
 import { AuthContext } from "../contexts/AuthProvider";
 import useUserRoleChecker from "../hooks/useUserRoleChecker";
 
-const PrivateRoute = ({ children }) => {
+const SellerRoute = ({ children }) => {
 	const location = useLocation();
 	const { user, loadingUser, logout } = useContext(AuthContext);
 	const [userRole, loadingUserRole] = useUserRoleChecker(user?.email);
@@ -13,7 +13,7 @@ const PrivateRoute = ({ children }) => {
 		return <PageSpinner></PageSpinner>;
 	}
 
-	if (user && userRole === "admin") {
+	if (user && userRole === "seller") {
 		return children;
 	} else {
 		// logout();
@@ -21,4 +21,4 @@ const PrivateRoute = ({ children }) => {
 	}
 };
 
-export default PrivateRoute;
+export default SellerRoute;
