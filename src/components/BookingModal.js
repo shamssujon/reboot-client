@@ -1,12 +1,16 @@
 import { Button, Dialog, DialogBody, DialogHeader, IconButton, Input, Typography } from "@material-tailwind/react";
-import React, { useContext } from "react";
+import axios from "axios";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { BsX } from "react-icons/bs";
+import { CgSpinner } from "react-icons/cg";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const BookingModal = ({ openModal, modalHandler, productData }) => {
 	const { user } = useContext(AuthContext);
-	const { title, image, price } = productData;
+	const { _id, title, image, price } = productData;
+	const [processingOrder, setProcessingOrder] = useState(null);
 	const {
 		register,
 		handleSubmit,
@@ -15,9 +19,41 @@ const BookingModal = ({ openModal, modalHandler, productData }) => {
 	} = useForm();
 
 	// Handle order booking
-	const handleBooking = (data) => {
-		console.log(data);
-		modalHandler();
+	const handleBooking = (orderBookingData) => {
+		const order = {
+			productId: _id,
+			productTitle: title,
+			productImage: image,
+			productPrice: price,
+			buyerName: orderBookingData.buyerName,
+			buyerEmail: orderBookingData.buyerEmail,
+			buyerPhone: orderBookingData.phone,
+			location: orderBookingData.location,
+			orderStatus: "pending",
+			orderDate: "",
+		};
+		// console.log(order);
+
+		// Send order to server to save in DB
+		axios({
+			method: "POST",
+			url: "http://localhost:9000/orders",
+			data: order,
+		})
+			.then((res) => {
+				console.log(res.data);
+
+				if (res.data.acknowledged) {
+					setProcessingOrder(false);
+					toast.success("Product added");
+					reset();
+					modalHandler();
+				}
+			})
+			.catch((error) => {
+				setProcessingOrder(false);
+				console.error(error);
+			});
 	};
 
 	return (
@@ -107,7 +143,7 @@ const BookingModal = ({ openModal, modalHandler, productData }) => {
 					<Button
 						type="submit"
 						className="flex w-full items-center justify-center gap-2 text-base font-normal tracking-wide md:w-auto">
-						Confirm Order
+						Confirm Order {processingOrder && <CgSpinner className="animate-spin text-2xl" />}
 					</Button>
 				</form>
 			</DialogBody>

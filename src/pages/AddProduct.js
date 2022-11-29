@@ -136,6 +136,7 @@ const AddProduct = () => {
 								</option>
 							))}
 						</select>
+						{errors.category && <p className="text-sm text-rose-500">{errors.category.message}</p>}
 
 						{/* ? The Select element from Material Tailwind seems buggy when loading options data dynamically.
 						 * options don't get selected on first try.
@@ -156,7 +157,6 @@ const AddProduct = () => {
 							control={control}
 							rules={{ required: { value: true, message: "Required" } }}
 						/> */}
-						{errors.category && <p className="text-sm text-rose-500">{errors.category.message}</p>}
 					</div>
 					<div className="grid gap-2">
 						<Input
