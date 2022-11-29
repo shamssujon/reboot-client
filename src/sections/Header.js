@@ -1,6 +1,5 @@
 import {
 	Avatar,
-	Button,
 	IconButton,
 	Menu,
 	MenuHandler,

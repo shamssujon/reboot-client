@@ -118,61 +118,65 @@ const ProductCategories = () => {
 				<Typography variant="h4" className="mb-6">
 					Product Categories
 				</Typography>
-				<div className="flex flex-col rounded-lg border bg-white">
-					<div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-						<div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-							<div className="overflow-x-auto">
-								<table className="min-w-full">
-									<thead>
-										<tr>
-											<th className="w-12 px-6 py-2 text-left text-sm font-medium text-blue-gray-800">
-												#
-											</th>
-											<th className="px-6 py-2 text-left text-sm font-medium text-blue-gray-800">
-												Image
-											</th>
-											<th className="px-6 py-2 text-left text-sm font-medium text-blue-gray-800">
-												Name
-											</th>
-											<th className="px-6 py-2 text-end text-sm font-medium text-blue-gray-800">
-												Actions
-											</th>
-										</tr>
-									</thead>
-									<tbody>
-										{categories.map((category, index) => (
-											<tr key={category._id} className="border-t">
-												<td className="whitespace-nowrap px-6 py-2 text-sm font-medium text-blue-gray-800">
-													{index + 1}
-												</td>
-												<td className="whitespace-nowrap px-6 py-2 text-sm font-light text-blue-gray-800">
-													<Avatar size="sm" src={category.image} alt={category.name} />
-												</td>
-												<td className="whitespace-nowrap px-6 py-2 text-sm font-light text-blue-gray-800">
-													{category.name}
-												</td>
-												<td className="whitespace-nowrap px-6 py-2 text-sm font-light text-blue-gray-800">
-													<div className="flex items-center justify-end gap-2">
-														<Tooltip content="Edit">
-															<IconButton size="sm" color="blue">
-																<TbEdit className="text-base" />
-															</IconButton>
-														</Tooltip>
-														<Tooltip content="Delete">
-															<IconButton size="sm" color="red">
-																<BsTrash className="text-base" />
-															</IconButton>
-														</Tooltip>
-													</div>
-												</td>
+				{categories.length === 0 ? (
+					<p>No category found</p>
+				) : (
+					<div className="flex flex-col rounded-lg border bg-white">
+						<div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+							<div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+								<div className="overflow-x-auto">
+									<table className="min-w-full">
+										<thead>
+											<tr>
+												<th className="w-12 px-6 py-2 text-left text-sm font-medium text-blue-gray-800">
+													#
+												</th>
+												<th className="px-6 py-2 text-left text-sm font-medium text-blue-gray-800">
+													Image
+												</th>
+												<th className="px-6 py-2 text-left text-sm font-medium text-blue-gray-800">
+													Name
+												</th>
+												<th className="px-6 py-2 text-end text-sm font-medium text-blue-gray-800">
+													Actions
+												</th>
 											</tr>
-										))}
-									</tbody>
-								</table>
+										</thead>
+										<tbody>
+											{categories.map((category, index) => (
+												<tr key={category._id} className="border-t">
+													<td className="whitespace-nowrap px-6 py-2 text-sm font-medium text-blue-gray-800">
+														{index + 1}
+													</td>
+													<td className="whitespace-nowrap px-6 py-2 text-sm font-light text-blue-gray-800">
+														<Avatar size="sm" src={category.image} alt={category.name} />
+													</td>
+													<td className="whitespace-nowrap px-6 py-2 text-sm font-light text-blue-gray-800">
+														{category.name}
+													</td>
+													<td className="whitespace-nowrap px-6 py-2 text-sm font-light text-blue-gray-800">
+														<div className="flex items-center justify-end gap-2">
+															<Tooltip content="Edit">
+																<IconButton size="sm" color="blue">
+																	<TbEdit className="text-base" />
+																</IconButton>
+															</Tooltip>
+															<Tooltip content="Delete">
+																<IconButton size="sm" color="red">
+																	<BsTrash className="text-base" />
+																</IconButton>
+															</Tooltip>
+														</div>
+													</td>
+												</tr>
+											))}
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				)}
 			</div>
 		</div>
 	);
