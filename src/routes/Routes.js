@@ -14,6 +14,7 @@ import ProductDetailsPage from "../pages/ProductDetailsPage";
 import ProductsPage from "../pages/ProductsPage";
 import SignInPage from "../pages/SignInPage";
 import SignUpPage from "../pages/SignUpPage";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
 	{
@@ -45,14 +46,22 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: "/products/:categorySlug",
-				element: <ProductsPage></ProductsPage>,
+				element: (
+					<PrivateRoute>
+						<ProductsPage></ProductsPage>
+					</PrivateRoute>
+				),
 				loader: async ({ params }) => {
 					return fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/products/${params.categorySlug}`);
 				},
 			},
 			{
 				path: "/products/product/:id",
-				element: <ProductDetailsPage></ProductDetailsPage>,
+				element: (
+					<PrivateRoute>
+						<ProductDetailsPage></ProductDetailsPage>
+					</PrivateRoute>
+				),
 				loader: async ({ params }) => {
 					return fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/product/${params.id}`);
 				},
@@ -61,7 +70,11 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: "/dashboard",
-		element: <DashboardLayout></DashboardLayout>,
+		element: (
+			<PrivateRoute>
+				<DashboardLayout></DashboardLayout>
+			</PrivateRoute>
+		),
 		children: [
 			{
 				path: "/dashboard",

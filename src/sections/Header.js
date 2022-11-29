@@ -71,9 +71,9 @@ const Header = () => {
 									{user?.photoURL ? (
 										<Avatar
 											src={user?.photoURL}
-											alt="avatar"
+											alt={user?.displayName[0]}
 											variant="circular"
-											className="h-full w-full object-cover"
+											className="h-full w-full object-cover text-lg font-bold uppercase text-white"
 										/>
 									) : (
 										<p className="text-lg font-bold uppercase text-white">{user?.displayName[0]}</p>

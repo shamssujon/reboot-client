@@ -23,7 +23,7 @@ const MyProducts = () => {
 	return (
 		<div className="">
 			<Typography variant="h4" className="mb-6">
-				My Orders
+				My Products
 			</Typography>
 			<div className="flex flex-col rounded-lg border bg-white">
 				<div className="overflow-x-auto sm:-mx-6 lg:-mx-8">

@@ -6,7 +6,7 @@ import {
 	signInWithEmailAndPassword,
 	signInWithPopup,
 	signOut,
-	updateProfile,
+	updateProfile
 } from "firebase/auth";
 import React, { createContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -25,21 +25,25 @@ const AuthProvider = ({ children }) => {
 
 	// Create user with email/password
 	const createUser = (email, password) => {
+		setLoadingUser(true);
 		return createUserWithEmailAndPassword(auth, email, password);
 	};
 
 	// Log in with email/password
 	const login = (email, password) => {
+		setLoadingUser(true);
 		return signInWithEmailAndPassword(auth, email, password);
 	};
 
 	// Google login
-	const loginwithGoogle = () => {
+	const googleLogin = () => {
+		setLoadingUser(true);
 		return signInWithPopup(auth, googleProvider);
 	};
 
 	// Log out
 	const logout = () => {
+		setLoadingUser(true);
 		signOut(auth)
 			.then(() => {
 				toast.success("Logged out successfully");
@@ -51,6 +55,7 @@ const AuthProvider = ({ children }) => {
 
 	// Update profile
 	const updateUserProfile = (name) => {
+		setLoadingUser(true);
 		return updateProfile(auth.currentUser, {
 			displayName: name,
 		});
@@ -69,13 +74,12 @@ const AuthProvider = ({ children }) => {
 	// Value
 	const value = {
 		user,
-		loading: loadingUser,
-		setLoading: setLoadingUser,
+		loadingUser,
 		createUser,
 		login,
 		logout,
 		updateUserProfile,
-		loginwithGoogle,
+		googleLogin,
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

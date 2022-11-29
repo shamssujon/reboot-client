@@ -13,7 +13,7 @@ const SignUpPage = () => {
 	const location = useLocation();
 	const from = location.state?.from?.pathname || "/";
 
-	const { createUser, updateUserProfile, loginwithGoogle } = useContext(AuthContext);
+	const { createUser, updateUserProfile, googleLogin } = useContext(AuthContext);
 
 	const [signUpLoading, setSignUpLoading] = useState(false);
 
@@ -90,7 +90,7 @@ const SignUpPage = () => {
 
 	// Google login
 	const handleGoogleLogin = () => {
-		loginwithGoogle()
+		googleLogin()
 			.then((result) => {
 				const user = result.user;
 				console.log(user);

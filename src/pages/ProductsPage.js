@@ -5,7 +5,6 @@ import Products from "../sections/Products";
 
 const ProductsPage = () => {
 	const productsData = useLoaderData();
-	console.log(productsData);
 	return (
 		<div>
 			<Categories></Categories>

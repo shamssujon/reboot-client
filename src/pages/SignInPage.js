@@ -1,17 +1,18 @@
 import { Button, Input, Typography } from "@material-tailwind/react";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { BsGoogle } from "react-icons/bs";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Divider from "../components/Divider";
-import { BsGoogle } from "react-icons/bs";
 import { AuthContext } from "../contexts/AuthProvider";
-import { toast } from "react-hot-toast";
 
 const SignInPage = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const from = location.state?.from?.pathname || "/";
-	const { login, loginwithGoogle } = useContext(AuthContext);
+
+	const { login, googleLogin } = useContext(AuthContext);
 
 	const {
 		register,
@@ -23,13 +24,30 @@ const SignInPage = () => {
 	const handleSignIn = (userInfo) => {
 		const email = userInfo.email;
 		const password = userInfo.password;
-		console.log(email, password);
 
 		login(email, password)
 			.then((result) => {
-				const user = result.user;
-				console.log(user);
+				// const user = result.user;
+				// console.log(user);
 				toast.success("Logged in successfully");
+
+				// Navigate user back to where they came from
+				navigate(from, { replace: true });
+			})
+			.catch((error) => {
+				console.error(error);
+				toast.error(error.message);
+			});
+	};
+
+	// Google login
+	const handleGoogleLogin = () => {
+		googleLogin()
+			.then((result) => {
+				// const user = result.user;
+				// console.log(user);
+
+				toast.success("Logged in with Google");
 
 				// Navigate user back to where they came from
 				navigate(from, { replace: true });
@@ -47,6 +65,7 @@ const SignInPage = () => {
 					<h3 className="mb-6 text-center text-3xl font-semibold">Sign in</h3>
 					<div className="flex items-center justify-center gap-2">
 						<Button
+							onClick={handleGoogleLogin}
 							variant="outlined"
 							className="flex items-center justify-center gap-2 text-base font-normal tracking-wide">
 							<BsGoogle className="text-xl" />
