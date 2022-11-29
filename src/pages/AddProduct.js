@@ -63,6 +63,7 @@ const AddProduct = () => {
 					usedFor: productData.usedFor,
 					postingDate: "",
 					description: productData.description,
+					status: "available",
 					seller: {
 						name: user.displayName,
 						email: user.email,

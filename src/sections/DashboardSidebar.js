@@ -5,7 +5,7 @@ const DashboardSidebar = () => {
 	const navList = [
 		{ title: "My Orders", path: "/dashboard/myorders" },
 		{ title: "Add a Product", path: "/dashboard/addproduct" },
-		{ title: "My Products", path: "/dashboard/user_orders" },
+		{ title: "My Products", path: "/dashboard/myproducts" },
 		{ title: "My Buyers", path: "/dashboard/user_orders" },
 		{ title: "All Buyers", path: "/dashboard/allbuyers" },
 		{ title: "All Sellers", path: "/dashboard/allsellers" },
