@@ -8,10 +8,10 @@ const DashboardLayout = () => {
 	return (
 		<div className="flex min-h-screen flex-col justify-between">
 			<Header></Header>
-			<div className="flex-1 grid grid-cols-[300px,1fr] container">
+			<div className="container grid flex-1 grid-cols-1 lg:grid-cols-[300px,1fr]">
 				<DashboardSidebar></DashboardSidebar>
-				<div className="p-10">
-				<Outlet></Outlet>
+				<div className="py-10 lg:p-10">
+					<Outlet></Outlet>
 				</div>
 			</div>
 			<Footer></Footer>

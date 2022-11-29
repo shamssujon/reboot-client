@@ -73,7 +73,7 @@ const ProductCategories = () => {
 	};
 
 	return (
-		<div className="grid gap-10">
+		<div className="grid grid-cols-1 gap-10">
 			<div>
 				<Typography variant="h4" className="mb-6">
 					Add a Category
