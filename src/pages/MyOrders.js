@@ -95,7 +95,7 @@ const MyOrders = () => {
 														Pay
 													</Button>
 													<Tooltip content="Delete Order">
-														<IconButton size="sm" color="red">
+														<IconButton size="sm" color="red" disabled={order.orderStatus === "paid"}>
 															<BsTrash className="text-base" />
 														</IconButton>
 													</Tooltip>

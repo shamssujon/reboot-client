@@ -12,6 +12,7 @@ const Categories = ({ sectionTitle }) => {
 			return data;
 		},
 	});
+	
 	return (
 		<section className="py-10">
 			<div className="container">
