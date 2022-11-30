@@ -10,7 +10,7 @@ import useUserRoleChecker from "../hooks/useUserRoleChecker";
 
 const AllBuyers = () => {
 	const { user } = useContext(AuthContext);
-	const [userRole, loadingUserRole] = useUserRoleChecker(user?.email);
+	const [userRole] = useUserRoleChecker(user?.email);
 	const {
 		data: buyers = [],
 		isLoading,

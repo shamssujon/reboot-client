@@ -1,11 +1,22 @@
 import { IconButton, Tooltip, Typography } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import axios from "axios";
+import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { BsTrash } from "react-icons/bs";
 import PageSpinner from "../components/PageSpinner";
+import { AuthContext } from "../contexts/AuthProvider";
+import useUserRoleChecker from "../hooks/useUserRoleChecker";
 
 const AllSellers = () => {
-	const { data: sellers = [], isLoading } = useQuery({
+	const { user } = useContext(AuthContext);
+	const [userRole] = useUserRoleChecker(user?.email);
+
+	const {
+		data: sellers = [],
+		isLoading,
+		refetch,
+	} = useQuery({
 		queryKey: ["sellers"],
 		queryFn: async () => {
 			const res = await fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/users?role=seller`);
@@ -13,6 +24,31 @@ const AllSellers = () => {
 			return data;
 		},
 	});
+
+	const handleDeleteUser = (id) => {
+		// console.log(id);
+
+		// Check admin
+		if (userRole === "admin") {
+			// Send delete req to server
+			axios({
+				method: "DELETE",
+				url: `${process.env.REACT_APP_SERVER_LIVE_URL}/users/${id}`,
+			})
+				.then((res) => {
+					console.log(res.data);
+
+					if (res.data.deletedCount > 0) {
+						toast.success("User deleted");
+						refetch();
+					}
+				})
+				.catch((error) => {
+					toast.error(error);
+					console.error(error);
+				});
+		}
+	};
 
 	if (isLoading) {
 		return <PageSpinner></PageSpinner>;
@@ -63,7 +99,10 @@ const AllSellers = () => {
 												<td className="whitespace-nowrap px-6 py-4 text-sm font-light text-blue-gray-800">
 													<div className="flex items-center justify-end gap-2">
 														<Tooltip content="Delete User">
-															<IconButton size="sm" color="red">
+															<IconButton
+																onClick={() => handleDeleteUser(seller._id)}
+																size="sm"
+																color="red">
 																<BsTrash className="text-base" />
 															</IconButton>
 														</Tooltip>
