@@ -25,14 +25,14 @@ const AllBuyers = () => {
 	});
 
 	const handleDeleteUser = (id) => {
-		console.log(id);
+		// console.log(id);
 
 		// Check admin
 		if (userRole === "admin") {
 			// Send delete req to server
 			axios({
 				method: "DELETE",
-				url: `${process.env.REACT_APP_SERVER_LOCAL_URL}/users/${id}`,
+				url: `${process.env.REACT_APP_SERVER_LIVE_URL}/users/${id}`,
 			})
 				.then((res) => {
 					console.log(res.data);

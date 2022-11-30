@@ -1,14 +1,22 @@
 import { Button, IconButton, Tooltip, Typography } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext } from "react";
+import axios from "axios";
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { BsTrash } from "react-icons/bs";
 import PageSpinner from "../components/PageSpinner";
 import { AuthContext } from "../contexts/AuthProvider";
+import useUserRoleChecker from "../hooks/useUserRoleChecker";
 
 const MyProducts = () => {
 	const { user, loadingUser } = useContext(AuthContext);
-
-	const { data: products = [], isLoading } = useQuery({
+	const [userRole, loadingUserRole] = useUserRoleChecker(user?.email);
+	const [processingDelete, setProcessingDelete] = useState(false);
+	const {
+		data: products = [],
+		isLoading,
+		refetch,
+	} = useQuery({
 		queryKey: ["products", user?.email],
 		queryFn: async () => {
 			const res = await fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/products?email=${user?.email}`);
@@ -17,9 +25,35 @@ const MyProducts = () => {
 		},
 	});
 
-	if (loadingUser || isLoading) {
+	const handleDeleteProduct = (id) => {
+		setProcessingDelete(true);
+		// Check admin
+		if (userRole === "seller") {
+			// Send delete req to server
+			axios({
+				method: "DELETE",
+				url: `${process.env.REACT_APP_SERVER_LIVE_URL}/products/${id}`,
+			})
+				.then((res) => {
+					console.log(res.data);
+
+					if (res.data.deletedCount > 0) {
+						toast.success("Product deleted");
+						refetch();
+						setProcessingDelete(false);
+					}
+				})
+				.catch((error) => {
+					toast.error(error);
+					console.error(error);
+				});
+		}
+	};
+
+	if (loadingUser || isLoading || processingDelete) {
 		return <PageSpinner></PageSpinner>;
 	}
+
 	return (
 		<div className="">
 			<Typography variant="h4" className="mb-6">
@@ -94,7 +128,10 @@ const MyProducts = () => {
 															Advertise
 														</Button>
 														<Tooltip content="Delete Product">
-															<IconButton size="sm" color="red">
+															<IconButton
+																onClick={() => handleDeleteProduct(product._id)}
+																size="sm"
+																color="red">
 																<BsTrash className="text-base" />
 															</IconButton>
 														</Tooltip>
