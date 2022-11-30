@@ -52,6 +52,22 @@ const MyOrders = () => {
 		}
 	};
 
+	const handlePayment = (id) => {
+		// Send delete req to server
+		axios({
+			method: "PUT",
+			url: `${process.env.REACT_APP_SERVER_LIVE_URL}/orders/payment/${id}`,
+		})
+			.then((res) => {
+				console.log(res.data);
+				toast.success("Paid");
+			})
+			.catch((error) => {
+				// toast.error(error);
+				console.error(error);
+			});
+	};
+
 	if (loadingUser || isLoading) {
 		return <PageSpinner></PageSpinner>;
 	}
@@ -128,6 +144,7 @@ const MyOrders = () => {
 												<td className="whitespace-nowrap px-6 py-4 text-sm font-light text-blue-gray-800">
 													<div className="flex items-center justify-end gap-2">
 														<Button
+															onClick={() => handlePayment(order._id)}
 															size="sm"
 															className="px-3 font-normal tracking-wide"
 															disabled={order.orderStatus === "paid"}>
