@@ -4,6 +4,7 @@ import MainLayout from "../layouts/MainLayout";
 import AddProduct from "../pages/AddProduct";
 import AllBuyers from "../pages/AllBuyers";
 import AllSellers from "../pages/AllSellers";
+import BlogPage from "../pages/BlogPage";
 import DashboardPage from "../pages/DashboardPage";
 import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage";
@@ -70,6 +71,10 @@ export const router = createBrowserRouter([
 				loader: async ({ params }) => {
 					return fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/product/${params.id}`);
 				},
+			},
+			{
+				path: "/blog",
+				element: <BlogPage></BlogPage>,
 			},
 		],
 	},

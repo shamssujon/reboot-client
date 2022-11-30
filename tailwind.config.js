@@ -36,6 +36,7 @@ module.exports = withMT({
 		},
 	},
 	plugins: [
+		require("@tailwindcss/typography"),
 		// require("@tailwindcss/forms")
 	],
 });
