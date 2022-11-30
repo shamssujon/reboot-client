@@ -1,5 +1,7 @@
+import { Button } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 
 const RecentProducts = () => {
@@ -23,6 +25,13 @@ const RecentProducts = () => {
 					{products.map((product) => (
 						<ProductCard key={product._id} product={product}></ProductCard>
 					))}
+				</div>
+				<div className="text-center mt-10">
+					<Link to="/products">
+						<Button variant="filled" size="lg" className="text-lg font-normal tracking-wide">
+							All Products
+						</Button>
+					</Link>
 				</div>
 			</div>
 		</section>
