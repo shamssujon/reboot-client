@@ -1,6 +1,5 @@
 import {
-	createUserWithEmailAndPassword,
-	getAuth,
+	createUserWithEmailAndPassword, getAuth,
 	GoogleAuthProvider,
 	onAuthStateChanged,
 	signInWithEmailAndPassword,

@@ -1,10 +1,11 @@
 import { Button, Input, Typography } from "@material-tailwind/react";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { BsGoogle } from "react-icons/bs";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Divider from "../components/Divider";
+import PageSpinner from "../components/PageSpinner";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const SignInPage = () => {
@@ -13,6 +14,7 @@ const SignInPage = () => {
 	const from = location.state?.from?.pathname || "/";
 
 	const { login, googleLogin } = useContext(AuthContext);
+	const [signUpLoading, setSignUpLoading] = useState(false);
 
 	const {
 		register,
@@ -44,17 +46,49 @@ const SignInPage = () => {
 	const handleGoogleLogin = () => {
 		googleLogin()
 			.then((result) => {
-				// const user = result.user;
+				const user = result.user;
 				// console.log(user);
+				const name = user.displayName;
+				const email = user.email;
+				const role = "buyer";
 
-				toast.success("Logged in with Google");
+				// Save Google user to DB
+				saveGoogleUserToDb(name, email, role);
+			})
+			.catch((error) => {
+				console.error(error);
+				toast.error(error.message);
+				setSignUpLoading(false);
+			});
+	};
+
+	// Send user to server to save to DB
+	const saveGoogleUserToDb = (name, email, role) => {
+		const newUser = { displayName: name, email, role };
+
+		fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/users`, {
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify(newUser),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				// console.log(data);
+
+				if (data.acknowledged) {
+					toast.success("Account created successfully with Google");
+				} else {
+					toast.success("Signed in with Google");
+				}
 
 				// Navigate user back to where they came from
 				navigate(from, { replace: true });
 			})
 			.catch((error) => {
 				console.error(error);
-				toast.error(error.message);
+				setSignUpLoading(false);
 			});
 	};
 
@@ -120,6 +154,9 @@ const SignInPage = () => {
 					</Typography>
 				</div>
 			</div>
+
+			{/* Show spinner when user signing up */}
+			{signUpLoading && <PageSpinner></PageSpinner>}
 		</section>
 	);
 };

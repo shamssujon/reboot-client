@@ -6,7 +6,7 @@ const useUserRoleChecker = (email) => {
 
 	useEffect(() => {
 		if (email) {
-			fetch(`http://localhost:9000/users/role/${email}`)
+			fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/users/role/${email}`)
 				.then((res) => res.json())
 				.then((data) => {
 					// console.log(data);

@@ -7,7 +7,7 @@ import {
 	MenuList,
 	MobileNav,
 	Navbar,
-	Typography,
+	Typography
 } from "@material-tailwind/react";
 import React, { useContext, useEffect, useState } from "react";
 import { BsFillPersonFill } from "react-icons/bs";
@@ -15,8 +15,7 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const Header = () => {
-	const { user, logout } = useContext(AuthContext);
-
+	const { user, logout, } = useContext(AuthContext);
 	const [openNav, setOpenNav] = useState(false);
 
 	useEffect(() => {
@@ -70,7 +69,7 @@ const Header = () => {
 									{user?.photoURL ? (
 										<Avatar
 											src={user?.photoURL}
-											alt={user?.displayName[0]}
+											alt=""
 											variant="circular"
 											className="h-full w-full object-cover text-lg font-bold uppercase text-white"
 										/>

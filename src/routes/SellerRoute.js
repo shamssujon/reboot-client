@@ -6,10 +6,10 @@ import useUserRoleChecker from "../hooks/useUserRoleChecker";
 
 const SellerRoute = ({ children }) => {
 	const location = useLocation();
-	const { user, loadingUser, logout } = useContext(AuthContext);
+	const { user, logout } = useContext(AuthContext);
 	const [userRole, loadingUserRole] = useUserRoleChecker(user?.email);
 
-	if (loadingUser || loadingUserRole) {
+	if (loadingUserRole) {
 		return <PageSpinner></PageSpinner>;
 	}
 

@@ -39,7 +39,7 @@ const BookingModal = ({ openModal, modalHandler, productData }) => {
 		// Send order to server to save in DB
 		axios({
 			method: "POST",
-			url: "http://localhost:9000/orders",
+			url: `${process.env.REACT_APP_SERVER_LIVE_URL}/orders`,
 			data: order,
 		})
 			.then((res) => {

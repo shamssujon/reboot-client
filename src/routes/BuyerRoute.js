@@ -9,7 +9,7 @@ const BuyerRoute = ({ children }) => {
 	const { user, loadingUser, logout } = useContext(AuthContext);
 	const [userRole, loadingUserRole] = useUserRoleChecker(user?.email);
 
-	if (loadingUser || loadingUserRole) {
+	if (loadingUserRole) {
 		return <PageSpinner></PageSpinner>;
 	}
 

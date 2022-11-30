@@ -54,7 +54,7 @@ const AllSellers = () => {
 													{index + 1}
 												</td>
 												<td className="whitespace-nowrap px-6 py-4 text-sm font-light text-blue-gray-800">
-													{seller.name}
+													{seller.displayName}
 													<p>{seller.role}</p>
 												</td>
 												<td className="whitespace-nowrap px-6 py-4 text-sm font-light text-blue-gray-800">

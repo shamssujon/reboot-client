@@ -1,5 +1,5 @@
 import { Button, Input, Radio, Typography } from "@material-tailwind/react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { BsGoogle } from "react-icons/bs";
@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Divider from "../components/Divider";
 import PageSpinner from "../components/PageSpinner";
 import { AuthContext } from "../contexts/AuthProvider";
+import useToken from "../hooks/useToken";
 
 const SignUpPage = () => {
 	const navigate = useNavigate();
@@ -14,8 +15,18 @@ const SignUpPage = () => {
 	const from = location.state?.from?.pathname || "/";
 
 	const { createUser, updateUserProfile, googleLogin } = useContext(AuthContext);
-
 	const [signUpLoading, setSignUpLoading] = useState(false);
+
+	// ? ERRORS
+	// const [newUserEmail, setNewUserEmail] = useState("");
+	// const [token] = useToken(newUserEmail);
+
+	// useEffect(() => {
+	// 	if (token) {
+	// 		// Navigate user back to where they came from
+	// 		navigate(from, { replace: true });
+	// 	}
+	// }, [from, navigate, token]);
 
 	const {
 		register,
@@ -30,13 +41,14 @@ const SignUpPage = () => {
 		const email = userInfo.email;
 		const password = userInfo.password;
 		const role = userInfo.role;
+
 		setSignUpLoading(true);
 
 		// Create user
 		createUser(email, password)
 			.then((result) => {
-				const user = result.user;
-				console.log(user);
+				// const user = result.user;
+				// console.log(user);
 
 				// Update user name
 				updateUserProfile(name)
@@ -59,7 +71,7 @@ const SignUpPage = () => {
 
 	// Send user to server to save to DB
 	const saveUserToDb = (name, email, role) => {
-		const newUser = { name, email, role };
+		const newUser = { displayName: name, email, role };
 
 		fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/users`, {
 			method: "POST",
@@ -70,11 +82,13 @@ const SignUpPage = () => {
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data);
+				// console.log(data);
+				setSignUpLoading(false);
+
 				if (data.acknowledged) {
 					toast.success("Account created successfully");
-					setSignUpLoading(false);
 					reset();
+
 					// Navigate user back to where they came from
 					navigate(from, { replace: true });
 				} else {
@@ -93,7 +107,7 @@ const SignUpPage = () => {
 		googleLogin()
 			.then((result) => {
 				const user = result.user;
-				console.log(user);
+				// console.log(user);
 				const name = user.displayName;
 				const email = user.email;
 				const role = "buyer";
@@ -110,7 +124,7 @@ const SignUpPage = () => {
 
 	// Send user to server to save to DB
 	const saveGoogleUserToDb = (name, email, role) => {
-		const newUser = { name, email, role };
+		const newUser = { displayName: name, email, role };
 
 		fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/users`, {
 			method: "POST",
@@ -122,6 +136,7 @@ const SignUpPage = () => {
 			.then((res) => res.json())
 			.then((data) => {
 				console.log(data);
+				setSignUpLoading(false);
 
 				if (data.acknowledged) {
 					toast.success("Account created successfully with Google");
