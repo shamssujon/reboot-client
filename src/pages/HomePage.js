@@ -8,7 +8,7 @@ const HomePage = () => {
 	return (
 		<>
 			<Hero></Hero>
-            <Categories sectionTitle="Categories"></Categories>
+            <Categories></Categories>
 			<SponsoredProducts></SponsoredProducts>
 			<RecentProducts></RecentProducts>
 		</>

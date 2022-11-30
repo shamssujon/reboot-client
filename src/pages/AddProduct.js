@@ -5,9 +5,11 @@ import React, { useContext, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const AddProduct = () => {
+	const navigate = useNavigate()
 	const { user } = useContext(AuthContext);
 
 	const [uploading, setUploading] = useState(false);
@@ -86,6 +88,7 @@ const AddProduct = () => {
 							setUploading(false);
 							toast.success("Product added");
 							reset();
+							navigate("/dashboard/myproducts")
 						}
 					})
 					.catch((error) => {
