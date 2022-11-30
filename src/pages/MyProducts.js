@@ -12,6 +12,8 @@ const MyProducts = () => {
 	const { user, loadingUser } = useContext(AuthContext);
 	const [userRole, loadingUserRole] = useUserRoleChecker(user?.email);
 	const [processingDelete, setProcessingDelete] = useState(false);
+	const [processingAd, setProcessingAd] = useState(false);
+
 	const {
 		data: products = [],
 		isLoading,
@@ -50,12 +52,40 @@ const MyProducts = () => {
 		}
 	};
 
-	if (loadingUser || isLoading || processingDelete) {
+	const handleMakeSponsored = (id) => {
+		console.log(id);
+		setProcessingAd(true);
+
+		// Check admin
+		if (userRole === "seller") {
+			// Send req to server to make sponsored/ad
+			axios({
+				method: "PUT",
+				url: `${process.env.REACT_APP_SERVER_LIVE_URL}/products/makesponsored/${id}`,
+			})
+				.then((res) => {
+					console.log(res.data);
+
+					if (res.data.modifiedCount > 0) {
+						toast.success("Product sponsored successfull");
+						refetch();
+						setProcessingAd(false);
+					}
+				})
+				.catch((error) => {
+					toast.error(error);
+					console.error(error);
+				});
+		}
+	};
+
+	if (loadingUser || isLoading) {
 		return <PageSpinner></PageSpinner>;
 	}
 
 	return (
 		<div className="">
+			{(processingDelete || processingAd) && <PageSpinner></PageSpinner>}
 			<Typography variant="h4" className="mb-6">
 				My Products
 			</Typography>
@@ -124,7 +154,11 @@ const MyProducts = () => {
 												</td>
 												<td className="whitespace-nowrap px-6 py-4 text-sm font-light text-blue-gray-800">
 													<div className="flex items-center justify-end gap-2">
-														<Button size="sm" className="px-3 font-normal tracking-wide">
+														<Button
+															onClick={() => handleMakeSponsored(product._id)}
+															size="sm"
+															className="px-3 font-normal tracking-wide"
+															disabled={product?.sponsored}>
 															Advertise
 														</Button>
 														<Tooltip content="Delete Product">
