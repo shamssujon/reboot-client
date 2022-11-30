@@ -47,7 +47,7 @@ const BookingModal = ({ openModal, modalHandler, productData }) => {
 
 				if (res.data.acknowledged) {
 					setProcessingOrder(false);
-					toast.success("Product added");
+					toast.success("Order placed");
 				}
 			})
 			.then(() => {

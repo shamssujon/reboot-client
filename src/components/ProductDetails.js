@@ -1,9 +1,42 @@
-import { Button, Typography } from "@material-tailwind/react";
-import React from "react";
-import { BsClockHistory, BsGeoAlt, BsPerson } from "react-icons/bs";
+import { Button, IconButton, Tooltip, Typography } from "@material-tailwind/react";
+import axios from "axios";
+import React, { useContext } from "react";
+import toast from "react-hot-toast";
+import { BsClockHistory, BsGeoAlt, BsHeart, BsPerson, BsSuitHeart } from "react-icons/bs";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const ProductDetails = ({ productData, modalHandler }) => {
-	const { title, image, price, condition, usedFor, postingDate, description, seller } = productData;
+	const { _id, title, image, price, condition, usedFor, postingDate, description, seller } = productData;
+	const { user } = useContext(AuthContext);
+
+	const handleWishlist = (product) => {
+		const wishlistProduct = {
+			productId: product._id,
+			productTitle: product.title,
+			productImage: product.image,
+			productPrice: product.price,
+			buyerName: user.displayName,
+			buyerEmail: user.email,
+			wishlistDate: "",
+		};
+
+		// Send order to server to save in DB
+		axios({
+			method: "POST",
+			url: `${process.env.REACT_APP_SERVER_LOCAL_URL}/wishlist`,
+			data: wishlistProduct,
+		})
+			.then((res) => {
+				console.log(res.data);
+				if (res.data.acknowledged) {
+					toast.success("Product added to wishlist");
+				}
+			})
+			.catch((error) => {
+				toast.error(error);
+				console.error(error);
+			});
+	};
 
 	return (
 		<div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
@@ -44,9 +77,16 @@ const ProductDetails = ({ productData, modalHandler }) => {
 				<Typography variant="h4" className="mb-4 font-normal text-blue-500">
 					<span className="text-base font-light">TK</span> {price}
 				</Typography>
-				<Button onClick={modalHandler} fullWidth size="lg" className="text-base font-normal tracking-wider">
-					Order now
-				</Button>
+				<div className="flex flex-wrap items-center gap-4">
+					<Button onClick={modalHandler} size="lg" className="flex-1 text-base font-normal tracking-wider">
+						Order now
+					</Button>
+					<Tooltip content="Add to wishlist" className="shrink-0">
+						<IconButton onClick={() => handleWishlist(productData)} size="lg" variant="outlined">
+							<BsSuitHeart className="text-2xl" />
+						</IconButton>
+					</Tooltip>
+				</div>
 			</div>
 		</div>
 	);
