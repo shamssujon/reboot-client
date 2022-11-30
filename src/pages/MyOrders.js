@@ -1,14 +1,23 @@
 import { Button, IconButton, Tooltip, Typography } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext } from "react";
+import axios from "axios";
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { BsTrash } from "react-icons/bs";
 import PageSpinner from "../components/PageSpinner";
 import { AuthContext } from "../contexts/AuthProvider";
+import useUserRoleChecker from "../hooks/useUserRoleChecker";
 
 const MyOrders = () => {
 	const { user, loadingUser } = useContext(AuthContext);
+	const [userRole, loadingUserRole] = useUserRoleChecker(user?.email);
+	const [processingDelete, setProcessingDelete] = useState(false);
 
-	const { data: orders = [], isLoading } = useQuery({
+	const {
+		data: orders = [],
+		isLoading,
+		refetch,
+	} = useQuery({
 		queryKey: ["orders", user?.email],
 		queryFn: async () => {
 			const res = await fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/orders?email=${user?.email}`);
@@ -17,12 +26,39 @@ const MyOrders = () => {
 		},
 	});
 
+	const handleDeleteOrder = (id) => {
+		setProcessingDelete(true);
+
+		// Check admin
+		if (userRole === "buyer") {
+			// Send delete req to server
+			axios({
+				method: "DELETE",
+				url: `${process.env.REACT_APP_SERVER_LIVE_URL}/orders/${id}`,
+			})
+				.then((res) => {
+					console.log(res.data);
+
+					if (res.data.deletedCount > 0) {
+						toast.success("Order deleted");
+						refetch();
+						setProcessingDelete(false);
+					}
+				})
+				.catch((error) => {
+					toast.error(error);
+					console.error(error);
+				});
+		}
+	};
+
 	if (loadingUser || isLoading) {
 		return <PageSpinner></PageSpinner>;
 	}
 
 	return (
 		<div className="">
+			{processingDelete && <PageSpinner></PageSpinner>}
 			<Typography variant="h4" className="mb-6">
 				My Orders
 			</Typography>
@@ -99,6 +135,7 @@ const MyOrders = () => {
 														</Button>
 														<Tooltip content="Delete Order">
 															<IconButton
+																onClick={() => handleDeleteOrder(order._id)}
 																size="sm"
 																color="red"
 																disabled={order.orderStatus === "paid"}>
