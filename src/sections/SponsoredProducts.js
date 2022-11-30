@@ -1,10 +1,7 @@
-import { Button, Card, CardBody, CardFooter, CardHeader, Typography } from "@material-tailwind/react";
 import React from "react";
-import { BsClockHistory, BsGeoAlt, BsPerson } from "react-icons/bs";
-import { VscCalendar } from "react-icons/vsc";
-import productImg from "../assets/images/product_img.png";
+import ProductCard from "../components/ProductCard";
 
-const SponsoredProducts = () => {
+const SponsoredProducts = ({sposoredProducts}) => {
 	return (
 		<section className="py-10">
 			<div className="container">
@@ -12,7 +9,10 @@ const SponsoredProducts = () => {
 					<h4 className="text-xl font-bold uppercase">Sponsored Products</h4>
 				</div>
 				<div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3 ">
-					<Card className="overflow-hidden rounded-lg shadow-amber-600/20 border-2 border-amber-200">
+				{sposoredProducts.map((product) => (
+						<ProductCard key={product._id} product={product}></ProductCard>
+					))}
+					{/* <Card className="overflow-hidden rounded-lg border-2 border-amber-200 shadow-amber-600/20">
 						<CardHeader color="blue" className="relative m-0 aspect-6/4 rounded-none bg-white shadow-none">
 							<img src={productImg} alt="" className="h-full w-full object-cover" />
 						</CardHeader>
@@ -48,7 +48,7 @@ const SponsoredProducts = () => {
 								Buy Now
 							</Button>
 						</CardFooter>
-					</Card>
+					</Card> */}
 				</div>
 			</div>
 		</section>

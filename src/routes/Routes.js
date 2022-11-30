@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
 				path: "/products",
 				element: <ProductsPage></ProductsPage>,
 				loader: async () => {
-					return fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/products`);
+					return fetch(`${process.env.REACT_APP_SERVER_LIVE_URL}/products?status=available`);
 				},
 			},
 			{

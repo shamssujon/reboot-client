@@ -5,9 +5,9 @@ import { VscCalendar } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
-	const { _id, title, image, price, category, condition, usedFor, seller, location, postingDate } = product;
+	const { _id, title, image, price, category, condition, usedFor, seller, location, postingDate, sponsored } = product;
 	return (
-		<Card className="justify-between overflow-hidden rounded-lg">
+		<Card className={`justify-between overflow-hidden rounded-lg ${sponsored ? "border-2 border-amber-200 shadow-amber-600/20" : ""}`}>
 			<CardHeader color="blue" className="relative m-0 aspect-6/4 rounded-none bg-white shadow-none">
 				<img src={image} alt="" className="h-full w-full object-cover" />
 			</CardHeader>
