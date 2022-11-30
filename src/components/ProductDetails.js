@@ -23,7 +23,7 @@ const ProductDetails = ({ productData, modalHandler }) => {
 		// Send order to server to save in DB
 		axios({
 			method: "POST",
-			url: `${process.env.REACT_APP_SERVER_LOCAL_URL}/wishlist`,
+			url: `${process.env.REACT_APP_SERVER_LIVE_URL}/wishlist`,
 			data: wishlistProduct,
 		})
 			.then((res) => {
