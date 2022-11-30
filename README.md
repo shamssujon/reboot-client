@@ -1,70 +1,48 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Reboot
 
-## Available Scripts
+Reboot is a online marketplace for pre-owned/second-hand computer products. You can buy and sell all kinds of (currently limited) used computer products. It's like Bikroy.com, but only for computer products.
 
-In the project directory, you can run:
 
-### `npm start`
+## Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+https://reboot-9dfe1.web.app/
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Admin Access
 
-### `npm test`
+adminEmail: admin@reboot.com
+adminPassword: 123456
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Built with React JS + Material Tailwind
+- Modern and Responsive design
+- Authentication with Email/Password and Google
+- Uses Database to save users, products, orders, etc.
+- Personalised dashboard design for Admin, Buyers and Sellers. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Tech Stack
 
-### `npm run eject`
+**Client:** React, React Router, React Query, TailwindCSS, Material Tailwind, Firebase Authentication.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Server:** Node, Express.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Database:** MongoDB.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Deploy:** Firebase Hosting (client), Vercel (server).
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Author
 
-## Learn More
+- [@shamssujon](https://www.github.com/shamssujon)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[![portfolio](https://img.shields.io/badge/portfolio-182155?style=for-the-badge&logo=ko-fi&logoColor=white)](https://shamssujon.com/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shamsulsujon/)
+[![github](https://img.shields.io/badge/github-161b22?style=for-the-badge&logo=github&logoColor=white)](https://shamssujon.com/)
+[![facebook](https://img.shields.io/badge/facebook-4267B2?style=for-the-badge&logo=facebook&logoColor=white)](https://www.facebook.com/the.shams.sujon/)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Feedback
 
-### Code Splitting
+If you have any feedback, please reach out to us at sujon2762@gmail.com
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
